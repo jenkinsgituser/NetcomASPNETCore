@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h2>Index</h2>
+
+@* Create a Hypelink, which will redirect to Login Page  *@
+
+@*Html.ActionLink("Login","Login")*@
+
+
+@await Component.InvokeAsync("CartView")
+
+
+<a asp-action="Login" asp-controller="Welcome">Login</a>
+
+@for (int i = 1; i <= 5; i++)
+{
+    <div>Div Number @i</div>
+}

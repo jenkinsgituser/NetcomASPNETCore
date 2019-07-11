@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+    @*<style type="text/css">
+        </style>*@
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="~/css/layout.css" rel="stylesheet" />
+    <script src="~/jquery/jquery.js"></script>
+
+    <script src="~/js/layout.js"></script>
+</head>
+<body>
+    <h1>This is Custom Layout</h1>
+    <div id="container">
+        @RenderBody()
+    </div>
+   
+    <div id="username">YOur name will appear here</div>
+    
+        <input id="tbname" type="text" placeholder="Enter Your Name" />
+
+    <button id="btnSubmit">Submit</button>
+
+
+    <div align="right"> 
+          @RenderSection("cart",false)  
+    </div>
+</body>
+</html>

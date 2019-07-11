@@ -1,0 +1,139 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <script src="~/lib/jquery/myjqueryfiles.min.js"></script>
+    @*<script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />\
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var webapiUrl = 'http://localhost:49838/api/UserAPI'
+            $.ajax({
+                url: webapiUrl,
+                type: 'get',
+                contenttype:'application/json'
+            }).done(function (response) {
+                console.log(response);
+
+                $.each(response, function (i, data) {
+                    var tablerow = "<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.age + "</td></tr>";
+                    $("#userbody").append(tablerow);
+                });
+            
+               
+            }).fail(function (error) {
+                console.log(error)
+                })
+
+
+            //add button click handler
+            $("#btnAdd").click(function () {
+
+            //retreive values from Input Elements
+                //prepare json data
+                var userrec = {
+                    name: $("#tbName").val(),
+                    age: $("#tbAge").val()
+                }
+                //send json data to server
+                $.ajax({
+                    url: webapiUrl,
+                    type: 'post',
+                    data: userrec,
+                    contenttype: 'application/json'
+                }).done(function (response) {
+                    console.log(response);
+                    var data = response.data;
+                    var tablerow = "<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.age + "</td></tr>";
+                    $("#userbody").append(tablerow);
+
+
+                    }).fail(function (error) {
+                        console.log(error);
+                    })
+            })
+        })
+        
+    </script>
+</head>
+<body>
+    <header>
+        <div>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Fixed navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="row">
+                                <input type="text" placeholder="Enter Name" 
+                                       id="tbName"
+                                       class="form-control"
+                                       required maxlength="20" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="row">
+                                <input type="number" placeholder="Enter Age" 
+                                       id="tbAge"
+                                       class="form-control"
+                                       required min="18" max="60" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                            <div class="col-12">
+                                <button id="btnAdd" class="ui-button">Add User</button>
+                            </div>
+                       
+                    </div>
+                
+            </div>
+            <div class="col-lg-8">
+                <table id="userTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Age</td>
+                        </tr>
+                    </thead>
+                    <tbody id="userbody"></tbody>
+                </table>
+             </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

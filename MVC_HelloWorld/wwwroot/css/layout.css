@@ -1,0 +1,13 @@
+﻿body {
+    font-family: 'Source Sans Pro', sans-serif;
+    
+}
+
+
+.error{
+    background-color:red;
+}
+
+.success{
+    background-color:green;
+}
